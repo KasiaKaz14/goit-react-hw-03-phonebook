@@ -1,0 +1,29 @@
+.list {
+  border: 2px dotted black;
+  border-radius: 5px 15px;
+  list-style-type: none;
+  padding: 10px;
+  margin-bottom: 0;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+  color: yellow;
+}
+
+.deleteButton {
+  border: 2px solid black;
+  border-radius: 5px;
+  color: brown;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.deleteButton:hover,
+.deleteButton:focus {
+  box-shadow: 2px 2px 29px -5px rgba(66, 68, 90, 1);
+  cursor: pointer;
+  color: white;
+}
