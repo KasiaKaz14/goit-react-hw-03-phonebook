@@ -16,8 +16,6 @@ export class App extends Component {
         { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
       ],
       filter: '',
-      name: '',
-      number: '',
     };
   }
 
@@ -36,14 +34,12 @@ export class App extends Component {
 
   nanoid = nanoid();
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-    const form = evt.target;
-    const {
-      name: { value: name },
-      number: { value: number },
-    } = form.elements;
-
+  handleSubmit = ({ name, number }) => {
+    const contact = {
+      id: nanoid(),
+      name,
+      number,
+    };
     const check = this.checkIfContactExist(name);
 
     if (!check) {
@@ -57,10 +53,13 @@ export class App extends Component {
         contacts: [...prevState.contacts, newContact],
       }));
       Notiflix.Notify.success('New contact succesfully added!');
-      form.reset();
     } else {
       Notiflix.Notify.warning(`${name} is already in contacts.`);
     }
+  };
+
+  handleFilterChange = evt => {
+    this.setState({ filter: evt.target.value });
   };
 
   checkIfContactExist = name => {
@@ -68,10 +67,6 @@ export class App extends Component {
     return contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
-  };
-
-  handleFilterChange = evt => {
-    this.setState({ filter: evt.target.value });
   };
 
   handleDelete = id => {
