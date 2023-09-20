@@ -19,27 +19,16 @@ export class App extends Component {
     };
   }
 
-  componentDidMount() {
-    const storedContacts = localStorage.getItem('contacts');
-    if (storedContacts) {
-      this.setState({ contacts: JSON.parse(storedContacts) });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts !== this.state.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
-
   nanoid = nanoid();
 
-  handleSubmit = ({ name, number }) => {
-    const contact = {
-      id: nanoid(),
-      name,
-      number,
-    };
+  handleSubmit = evt => {
+    evt.preventDefault();
+    const form = evt.target;
+    const {
+      name: { value: name },
+      number: { value: number },
+    } = form.elements;
+
     const check = this.checkIfContactExist(name);
 
     if (!check) {
@@ -53,13 +42,10 @@ export class App extends Component {
         contacts: [...prevState.contacts, newContact],
       }));
       Notiflix.Notify.success('New contact succesfully added!');
+      form.reset();
     } else {
       Notiflix.Notify.warning(`${name} is already in contacts.`);
     }
-  };
-
-  handleFilterChange = evt => {
-    this.setState({ filter: evt.target.value });
   };
 
   checkIfContactExist = name => {
@@ -67,6 +53,10 @@ export class App extends Component {
     return contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
+  };
+
+  handleFilterChange = evt => {
+    this.setState({ filter: evt.target.value });
   };
 
   handleDelete = id => {
@@ -83,7 +73,7 @@ export class App extends Component {
   };
 
   render() {
-    const { contacts, filter } = this.state;
+    const { contacts, filter, id } = this.state;
     const filterSearch = contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
