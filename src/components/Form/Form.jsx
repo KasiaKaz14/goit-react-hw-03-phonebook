@@ -8,11 +8,6 @@ export class Form extends Component {
     number: '',
   };
 
-  handleFilterChange = evt => {
-    const { name, value } = evt.currentTarget;
-    this.setState({ [name]: value });
-  };
-
   formSubmit = evt => {
     evt.preventDefault();
     this.props.onSubmit(this.state);
