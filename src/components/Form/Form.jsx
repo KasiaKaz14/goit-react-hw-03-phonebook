@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import css from './Form.module.css';
-import { Component } from 'react';
 
 export const Form = ({ onSubmit }) => {
   return (
