@@ -5,7 +5,7 @@ export const Form = ({ onSubmit }) => {
   return (
     <form onSubmit={onSubmit}>
       <label className={css.label}>
-        Name
+        Name Name
         <input
           type="text"
           name="name"

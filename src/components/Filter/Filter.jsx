@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import css from './Filter.module.css';
 
-export const Filter = ({ handleFilterChange, filter }) => {
+export const Filter = ({ onChange, filter }) => {
   return (
-    <label className={css.label} onChange={handleFilterChange}>
+    <label className={css.label} onChange={onChange}>
       Find contacts by name
       <input
         className={css.input}

@@ -16,10 +16,10 @@ export class App extends Component {
         { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
       ],
       filter: '',
+      name: '',
+      number: '',
     };
   }
-
-  nanoid = nanoid();
 
   componentDidMount() {
     const storedContacts = localStorage.getItem('contacts');
@@ -33,6 +33,8 @@ export class App extends Component {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
   }
+
+  nanoid = nanoid();
 
   handleSubmit = evt => {
     evt.preventDefault();
