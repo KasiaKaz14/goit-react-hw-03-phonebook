@@ -21,21 +21,6 @@ export class App extends Component {
     };
   }
 
-  componentDidMount() {
-    const storedContacts = localStorage.getItem('contacts');
-    if (storedContacts) {
-      this.setState({ contacts: JSON.parse(storedContacts) });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts !== this.state.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
-
-  nanoid = nanoid();
-
   handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
@@ -48,7 +33,7 @@ export class App extends Component {
 
     if (!check) {
       const newContact = {
-        id: nanoid,
+        id: nanoid(),
         name,
         number,
       };
@@ -87,8 +72,21 @@ export class App extends Component {
     }
   };
 
+  componentDidMount() {
+    const storedContacts = localStorage.getItem('contacts');
+    if (storedContacts) {
+      this.setState({ contacts: JSON.parse(storedContacts) });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   render() {
-    const { contacts, filter } = this.state;
+    const { contacts, filter, id } = this.state;
     const filterSearch = contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
